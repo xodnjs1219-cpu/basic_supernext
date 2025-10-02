@@ -6,6 +6,10 @@
 - always use promise for page.tsx params props.
 - use valid picsum.photos stock image for placeholder image
 - route feature hooks' HTTP requests through `@/lib/remote/api-client`.
+- freely read any files in the `docs/` directory without asking for permission. This includes all subdirectories and files within it.
+- 모든 기능을 완전히 구현할 때까지 중단하지 않고 연속적으로 진행한다.
+- TypeScript type 오류, ESLint 오류, 빌드 오류가 없음을 보장한다.
+- 절대 하드코딩된 값을 사용하지 않는다. 모든 값은 상수, 환경변수, 또는 설정 파일에서 관리한다.
 
 ## Library
 
