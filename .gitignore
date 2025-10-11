@@ -57,6 +57,8 @@ next-env.d.ts
 /.gemini/settings.json.bak
 /.mcp.json
 /.mcp.json.bak
+/.vscode/mcp.json
+/.vscode/mcp.json.bak
 /AGENTS.md
 /AGENTS.md.bak
 /CLAUDE.md
@@ -64,4 +66,5 @@ next-env.d.ts
 # END Ruler Generated Files
 
 # Claude Code
-/.claude/
+/.claude/settings.local.json
+
