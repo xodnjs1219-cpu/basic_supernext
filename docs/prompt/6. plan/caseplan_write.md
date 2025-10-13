@@ -1,4 +1,4 @@
-@docs/00N/spec.md참조
+@docs/usecases/00N/spec.md참조
 
 위 유스케이스 문서의 기능을 구현하기위한 최소한의 모듈화 설계 진행하세요.
 
