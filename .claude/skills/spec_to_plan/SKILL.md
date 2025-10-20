@@ -116,12 +116,15 @@ Task(
 - `/docs/userflow.md` - Identifies features to document
 - Feature number N from user flow
 - `/docs/database.md` - Database schema (for data references)
+- `/docs/external/[service].md` - External service integration specs (if exists)
 
 **Process:**
 1. Extract feature N from user flow
-2. Document use case with standard structure
-3. Create sequence diagram showing User → FE → BE → Database interactions
-4. **[IMPORTANT]** Include Backend API specifications (see [Hono Backend Guide](references/hono-backend-guide.md))
+2. Check if external service integration is required (`/docs/external/[service].md`)
+3. Document use case with standard structure
+4. Create sequence diagram showing User → FE → BE → Database (and External Service if applicable) interactions
+5. **[IMPORTANT]** Include Backend API specifications (see [Hono Backend Guide](references/hono-backend-guide.md))
+6. **[IMPORTANT]** Include External Service integration details if `/docs/external/[service].md` exists
 
 **Output:**
 - `/docs/00N/spec.md` - Use case specification
@@ -135,14 +138,16 @@ Task(
 - Business Rules
   - **API Specification**: Endpoint, Request/Response schemas, Error codes
   - **Database Operations**: Tables, operations (INSERT/SELECT/UPDATE/DELETE)
+  - **External Service Integration**: Service name, purpose, API calls (if `/docs/external/[service].md` exists)
 - Sequence Diagram (PlantUML format, no separators)
 
 **Diagram Guidelines:**
 - Use standard PlantUML syntax
 - **Subdivide BE layer**: Hono Router (route.ts) and Service (service.ts)
+- **Include External Service participant**: If external service is used, add as a separate participant (e.g., "Payment Gateway", "Email Service")
 - Show validation, transformation, and error handling flows
 - No custom separators or non-standard markup
-- Show complete interaction flow
+- Show complete interaction flow including external service calls
 
 **For Hono + Supabase projects**: See detailed guidance in [Hono Backend Guide](references/hono-backend-guide.md#phase-2-use-cases)
 
@@ -481,15 +486,18 @@ Task(
 
 **Inputs:**
 - `/docs/usecases/00N/spec.md`
+- `/docs/external/[service].md` - External service integration specs (if referenced in spec.md)
 - Existing codebase (conventions, implemented features)
 - `CLAUDE.md` - Codebase structure guidelines
 
 **Process:**
 1. Parse use case requirements
-2. Explore codebase for existing patterns and conventions
-3. Design modular structure following AGENTS.md
-4. Identify shared/generic modules
-5. **[IMPORTANT]** Design backend modules (see [Hono Backend Guide](references/hono-backend-guide.md))
+2. Check if external service integration is required (read `/docs/external/[service].md` if referenced)
+3. Explore codebase for existing patterns and conventions
+4. Design modular structure following AGENTS.md
+5. Identify shared/generic modules
+6. **[IMPORTANT]** Design backend modules (see [Hono Backend Guide](references/hono-backend-guide.md))
+7. **[IMPORTANT]** Design external service integration layer if required
 
 **Output:**
 - `/docs/usecases/00N/plan.md`
@@ -497,12 +505,15 @@ Task(
 **Plan Structure:**
 - **Overview** - Module list with names, locations, descriptions
   - Include backend modules: schema.ts, error.ts, service.ts, route.ts
+  - Include external service integration modules if needed (e.g., `lib/external/[service]-client.ts`)
 - **Diagram** - Mermaid diagram showing module relationships
   - Show data flow from Route → Service → Supabase
+  - Show external service integration flow if applicable
 - **Implementation Plan** - Per-module details with:
   - Presentation layer: QA sheets
   - Business logic: Unit tests
   - **Backend layer**: Schema definitions, Service unit tests, Route QA sheets
+  - **External Service layer**: Integration module, error handling, unit tests (if applicable)
 
 **For Hono + Supabase projects**: See detailed module templates in [Hono Backend Guide](references/hono-backend-guide.md#backend-모듈-구현-템플릿)
 
@@ -511,7 +522,8 @@ Task(
 - Identifies shared/generic modules automatically
 - Follows CLAUDE.md structure guidelines strictly
 - Includes backend modules (schema, error, service, route) for Hono projects
-- Generates Mermaid diagrams showing module relationships
+- **Integrates external service specs from `/docs/external/[service].md`**
+- Generates Mermaid diagrams showing module relationships including external services
 - Creates QA sheets for UI and unit test scenarios for logic
 
 ### Page-Based Plan
@@ -532,6 +544,7 @@ Task(
 **Inputs:**
 - All `/docs/*.md` files (direct children only)
 - Related `/docs/usecases/*/spec.md` files
+- `/docs/external/[service].md` - External service integration specs (if referenced in related use cases)
 - `/docs/pages/[pagename]/state_management.md` (if exists)
 - Existing codebase
 - `CLAUDE.md`
@@ -539,9 +552,11 @@ Task(
 **Process:**
 1. Read all relevant documentation
 2. Extract page requirements from related use cases
-3. Reference state management design if available
-4. Explore codebase patterns
-5. Design modular structure with shared components
+3. Check if external service integration is required (read `/docs/external/[service].md` if referenced)
+4. Reference state management design if available
+5. Explore codebase patterns
+6. Design modular structure with shared components
+7. Design external service integration layer if required
 
 **Output:**
 - `/docs/pages/[pagename]/plan.md`
